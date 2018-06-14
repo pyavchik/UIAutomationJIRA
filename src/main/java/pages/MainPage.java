@@ -9,12 +9,11 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.testng.Assert.assertEquals;
 
 public class MainPage {
-    private static SelenideElement element = null;
     private static String xpathForCreateIssueButton = "//a[@id='create_link']";
     private static String idForCreateIssueButtonAtCreateIssueWindow = "create-issue-submit";
     private static String xpathForCancelCreateIssueLinkAtCreateIssueWindow = "//a[@class='cancel']";
     private static String xpathForUserIcon = "//a[@id='header-details-user-fullname']";
-    private static String idLogutLink = "log_out";
+    private static String idLogoutLink = "log_out";
     private static String idForSummaryTextBox = "summary";
     private static String idForDescriptionTextBox = "tinymce";
     private static String xpathForIssueCreatedAllert = "//a[@class='issue-created-key issue-link']";
@@ -25,8 +24,7 @@ public class MainPage {
      * @return
      */
     public static SelenideElement cancelCreateIssueLink() {
-        element = $(By.xpath(xpathForCancelCreateIssueLinkAtCreateIssueWindow));
-        return element;
+        return $(By.xpath(xpathForCancelCreateIssueLinkAtCreateIssueWindow));
     }
 
     /**
@@ -34,30 +32,33 @@ public class MainPage {
      * @return
      */
     public static SelenideElement createIssueButton() {
-        element = $(By.xpath(xpathForCreateIssueButton));
-        return element;
+        return $(By.xpath(xpathForCreateIssueButton));
     }
 
     public static void logout(){
-        userIcon().click();
-        logoutLink().click();
+        findUserIcon().click();
+        findLogoutLink().click();
     }
 
     public static void createNewIssue(String summaryText, String descriptionText) {
         createIssueButton().click();
-        summaryTextBox().setValue(summaryText);
+        findSummaryTextBox().setValue(summaryText);
         switchTo().frame("mce_0_ifr");
-        descriptionTextBox().setValue(descriptionText);
-        descriptionTextBox().sendKeys(Keys.ENTER);
+        findDescriptionTextBox().setValue(descriptionText);
+        findDescriptionTextBox().sendKeys(Keys.ENTER);
         switchTo().parentFrame();
-        createIssueButtonAtCreateIssueWindow().click();
+        findCreateIssueButtonAtCreateIssueWindow().click();
 
         assertEquals($(By.xpath(xpathForIssueCreatedAllert)).getText().contains(summaryText), true);
     }
 
+    public static void updateIssueDescription(String updatedDescription) {
+
+    }
+
     public static void createIssueWithoutSummary(String descriptionText) {
         createIssueButton().click();
-        createIssueButtonAtCreateIssueWindow().click();
+        findCreateIssueButtonAtCreateIssueWindow().click();
         assertEquals($(By.xpath(xpathForMessageYouMustSpecifySummaryOfTheIssue)).getText(), "You must specify a summary of the issue.");
         cancelCreateIssueLink().click();
         switchTo().alert().accept();
@@ -67,44 +68,39 @@ public class MainPage {
      * Returns the create issue button at create issue window element
      * @return
      */
-    private static SelenideElement createIssueButtonAtCreateIssueWindow() {
-        element = $(By.id(idForCreateIssueButtonAtCreateIssueWindow));
-        return element;
+    private static SelenideElement findCreateIssueButtonAtCreateIssueWindow() {
+        return $(By.id(idForCreateIssueButtonAtCreateIssueWindow));
     }
 
     /**
      * Returns the issue description of text box element
      * @return
      */
-    private static SelenideElement descriptionTextBox() {
-        element = $(By.id(idForDescriptionTextBox));
-        return element;
+    private static SelenideElement findDescriptionTextBox() {
+        return $(By.id(idForDescriptionTextBox));
     }
 
     /**
      * Returns the issue summary text box element
      * @return
      */
-    private static SelenideElement summaryTextBox() {
-        element = $(By.id(idForSummaryTextBox));
-        return element;
+    private static SelenideElement findSummaryTextBox() {
+        return $(By.id(idForSummaryTextBox));
     }
 
     /**
      * Returns the user icon element
      * @return
      */
-    private static SelenideElement userIcon() {
-        element = $(By.xpath(xpathForUserIcon));
-        return element;
+    private static SelenideElement findUserIcon() {
+        return $(By.xpath(xpathForUserIcon));
     }
 
     /**
      * Returns the logout link element
      * @return
      */
-    private static SelenideElement logoutLink() {
-        element = $(By.id(idLogutLink));
-        return element;
+    private static SelenideElement findLogoutLink() {
+        return $(By.id(idLogoutLink));
     }
 }

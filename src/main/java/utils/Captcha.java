@@ -31,8 +31,8 @@ public class Captcha {
             FileInputStream is = new FileInputStream(f);
             String balance = CapchaUtils.getBalance(ACCOUNT_KEY_ANTI_CAPCHA);
             answer = CapchaBypass.CapchaAnswer(is, ACCOUNT_KEY_ANTI_CAPCHA, "NO", "NO", "NO");
-        } catch (ArrayIndexOutOfBoundsException | IOException | InterruptedException e) {
-
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
 
         return answer;

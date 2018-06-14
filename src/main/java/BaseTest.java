@@ -9,7 +9,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public class BaseTest {
     @BeforeTest
     public static void setUp() throws IOException {
-        Configuration.timeout = 10000;
+        Configuration.timeout = 35000;
     }
 
     @AfterTest

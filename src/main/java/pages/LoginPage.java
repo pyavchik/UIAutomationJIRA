@@ -8,42 +8,45 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class LoginPage {
     private static String baseUrl = "http://jira.hillel.it:8080/login.jsp";
-    private static SelenideElement element = null;
+
     private static String xpathAuiMessageError = "//div[@class='aui-message error']";
 
     public static void login(String login, String password) {
         open(baseUrl);
         setUpFieldsForLogin(login, password);
-        loginButton().click();
+        findLoginButton().click();
 
-        boolean whatchDog = true;
-        while (whatchDog){
+        for (int i = 0; i < 5; i++) {
             if($$(By.xpath(xpathAuiMessageError)).size() > 0){
-                if(isErrorMessagePresent() && (auiErrorMessage().getText().equals("Sorry, your userid is required to answer a CAPTCHA question correctly."))){
+                if(isErrorMessagePresent() && (findAuiErrorMessage().getText().equals("Sorry, your userid is required to answer a CAPTCHA question correctly."))){
                     loginWithCaptcha(login, password);
                 } else {
-                    whatchDog = false;
+                    continue;
                 }
             } else {
-                whatchDog = false;
+                continue;
             }
         }
     }
 
     public static void loginWithCaptcha(String login, String password) {
         setUpFieldsForLogin(login, password);
-        captchaTextBox().setValue(Captcha.getCaptcha());
-        loginButton().click();
+        if(findCaptchaTextBox().isDisplayed()){
+            findCaptchaTextBox().setValue(Captcha.getCaptcha());
+        }
+        findLoginButton().click();
     }
 
     private static void setUpFieldsForLogin(String login, String password) {
-        usernameTextBox().setValue(login);
-        passwordTextBox().setValue(password);
-        checkBoxRememberMe().click();
+        findUsernameTextBox().setValue(login);
+        findPasswordTextBox().setValue(password);
+        findCheckBoxRememberMe().click();
     }
 
     private static boolean isErrorMessagePresent() {
-        if((auiErrorMessage() != null) ){
+        SelenideElement element = findAuiErrorMessage();
+        if((element != null) ){
+            element.isDisplayed();
             return true;
         } else {
             return false;
@@ -55,53 +58,47 @@ public class LoginPage {
      * Returns the captcha text box element
      * @return
      */
-    private static SelenideElement captchaTextBox() {
-        element = $(By.id("login-form-os-captcha"));
-        return element;
+    private static SelenideElement findCaptchaTextBox() {
+        return $(By.id("login-form-os-captcha"));
     }
 
     /**
      * Returns the aui-message error element
      * @return
      */
-    public static SelenideElement auiErrorMessage() {
-        element = $(By.xpath(xpathAuiMessageError));
-        return element;
+    public static SelenideElement findAuiErrorMessage() {
+        return $(By.xpath(xpathAuiMessageError));
     }
 
     /**
      * Returns the login text box element
      * @return
      */
-    private static SelenideElement usernameTextBox() {
-        element = $(By.id("login-form-username"));
-        return element;
+    private static SelenideElement findUsernameTextBox() {
+        return $(By.id("login-form-username"));
     }
 
     /***
      * Returns the password text box element
      * @return
      */
-    private static SelenideElement passwordTextBox() {
-        element = $(By.id("login-form-password"));
-        return element;
+    private static SelenideElement findPasswordTextBox() {
+        return $(By.id("login-form-password"));
     }
 
     /***
      * Returns the check box element
      * @return
      */
-    private static SelenideElement checkBoxRememberMe(){
-        element = $(By.id("login-form-remember-me"));
-        return element;
+    private static SelenideElement findCheckBoxRememberMe(){
+        return $(By.id("login-form-remember-me"));
     }
 
     /***
      * Returns the log in button element
      * @return
      */
-    private static SelenideElement loginButton(){
-        element = $(By.id("login-form-submit"));
-        return element;
+    private static SelenideElement findLoginButton(){
+        return $(By.id("login-form-submit"));
     }
 }
