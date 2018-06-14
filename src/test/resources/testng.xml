@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name = "TestSuite"  >
+    <test name="LoginTest" preserve-order="true">
+        <classes>
+            <class name="LoginTest">
+            <methods>
+                <include name="loginCorrectLoginWrongPasswordTest" />
+                <include name="loginTest" />
+            </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
