@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -201,6 +202,8 @@ public class ReportedByMeIssuesPage {
         findDescriptionTextBox().sendKeys(Keys.ENTER);
         switchTo().parentFrame();
         findSaveButtonInEditCommentWindow().click();
+        findCommentText().shouldBe(Condition.appear);
+
     }
 
     public static void deleteComment() {
