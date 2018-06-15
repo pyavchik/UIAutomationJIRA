@@ -19,6 +19,12 @@ public class ReportedByMeIssuesPage {
     private static String idEditButtonInEditIssueWindow = "edit-issue-submit";
     private static String xpathCommentLink = "//span[@class='trigger-label'][contains(text(),'Comment')]";
     private static String idAddCommentButton = "issue-comment-add-submit";
+    private static String xpathForComment = "//div[@class='action-body flooded']";
+    private static String xpathForDeletedComment = "//div[@class='message-container']";
+    private static String xpathForEdinCommentButton = "//span[@class='icon-default aui-icon aui-icon-small aui-iconfont-edit']";
+    private static String xpathForDeleteCommentButton = "//span[@class='icon-default aui-icon aui-icon-small aui-iconfont-delete']";
+    private static String idForSaveButtonInEditCommentWindow = "comment-edit-submit";
+    private static String idForDeleteButtonInDeleteCommentWindow = "comment-delete-submit";
 
 
     public static void deleteIssueReportedByMe(String summary) {
@@ -73,7 +79,7 @@ public class ReportedByMeIssuesPage {
     }
 
     /**
-     * Returns the button 'Delete" element
+     * Returns the button 'Delete" element in delete window
      * @return
      */
     private static SelenideElement findDeleteButtonInDeleteWindow() {
@@ -100,7 +106,7 @@ public class ReportedByMeIssuesPage {
      * Returns the reported by me issue link element
      * @return
      */
-    public static SelenideElement findReportedByMeIssueLink() {
+    private static SelenideElement findReportedByMeIssueLink() {
         return $(By.xpath(xpathReportedByMeIssue));
     }
 
@@ -108,7 +114,7 @@ public class ReportedByMeIssuesPage {
      * Returns the comment button element
      * @return
      */
-    public static SelenideElement findCommentLink() {
+    private static SelenideElement findCommentLink() {
         return $(By.xpath(xpathCommentLink));
     }
 
@@ -116,8 +122,56 @@ public class ReportedByMeIssuesPage {
      * Returns the add comment button element
      * @return
      */
-    public static SelenideElement findAddCommentButton() {
+    private static SelenideElement findAddCommentButton() {
         return $(By.id(idAddCommentButton));
+    }
+
+    /**
+     * Returns the comment textbox element
+     * @return
+     */
+    private static SelenideElement findCommentText() {
+        return $(By.xpath(xpathForComment));
+    }
+
+    /**
+     * Returns the deleted comment textbox element
+     * @return
+     */
+    public static SelenideElement findDeletedCommentText() {
+        return $(By.xpath(xpathForDeletedComment));
+    }
+
+    /**
+     * Returns the edit comment button element
+     * @return
+     */
+    private static SelenideElement findEditCommentButton() {
+        return $(By.xpath(xpathForEdinCommentButton));
+    }
+
+    /**
+     * Returns the delete comment button element
+     * @return
+     */
+    private static SelenideElement findDeleteCommentButton() {
+        return $(By.xpath(xpathForDeleteCommentButton));
+    }
+
+    /**
+     * Returns the save button element in edit comment window
+     * @return
+     */
+    private static SelenideElement findSaveButtonInEditCommentWindow() {
+        return $(By.id(idForSaveButtonInEditCommentWindow));
+    }
+
+    /**
+     * Returns the delete button element in delete comment window
+     * @return
+     */
+    private static SelenideElement findDeleteCommentButtonInDeleteCommentWindow() {
+        return $(By.id(idForDeleteButtonInDeleteCommentWindow));
     }
 
     public static void createComment(String summary, String commentText) {
@@ -132,12 +186,26 @@ public class ReportedByMeIssuesPage {
         findAddCommentButton().click();
     }
 
-    public static void readComment() {
+    public static String readComment() {
+        String commentText = findCommentText().getText();
+        return commentText;
+
     }
 
     public static void updateComment(String updatedCommentText) {
+        findCommentText().hover();
+        findEditCommentButton().click();
+        switchTo().frame("mce_6_ifr");
+        findDescriptionTextBox().clear();
+        findDescriptionTextBox().setValue(updatedCommentText);
+        findDescriptionTextBox().sendKeys(Keys.ENTER);
+        switchTo().parentFrame();
+        findSaveButtonInEditCommentWindow().click();
     }
 
     public static void deleteComment() {
+        findCommentText().hover();
+        findDeleteCommentButton().click();
+        findDeleteCommentButtonInDeleteCommentWindow().click();
     }
 }
