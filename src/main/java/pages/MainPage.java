@@ -5,7 +5,8 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.switchTo;
 import static org.testng.Assert.assertEquals;
 
 public class MainPage {
@@ -18,12 +19,57 @@ public class MainPage {
     private static String idForDescriptionTextBox = "tinymce";
     private static String xpathForIssueCreatedAllert = "//a[@class='issue-created-key issue-link']";
     private static String xpathForMessageYouMustSpecifySummaryOfTheIssue = "//div[@class='error']";
+    private static String xpathForDashboardLink = "//a[@id='home_link']";
+    private static String xpathForProjectsLink = "//a[@id='browse_link']";
+    private static String xpathForIssuesLink = "//a[@id='find_link']";
+    private static String xpathForBoardsLink = "//a[@id='greenhopper_menu']";
+    private static String xpathForTestsLink = "//a[@id='zephyr_je.topnav.tests']";
+
+    /**
+     * Returns the dashboard link
+     * @return
+     */
+    public static SelenideElement findDashboardLink() {
+        return $(By.xpath(xpathForDashboardLink));
+    }
+
+    /**
+     * Returns the projects link
+     * @return
+     */
+    public static SelenideElement findProjectsLink() {
+        return $(By.xpath(xpathForProjectsLink));
+    }
+
+    /**
+     * Returns the issues link
+     * @return
+     */
+    public static SelenideElement findIssuesLink() {
+        return $(By.xpath(xpathForIssuesLink));
+    }
+
+    /**
+     * Returns the boards link
+     * @return
+     */
+    public static SelenideElement findBoardsLink() {
+        return $(By.xpath(xpathForBoardsLink));
+    }
+
+    /**
+     * Returns the tests link
+     * @return
+     */
+    public static SelenideElement findTestsLink() {
+        return $(By.xpath(xpathForTestsLink));
+    }
 
     /**
      * Returns the cancel create issue link element from create issue window
      * @return
      */
-    public static SelenideElement cancelCreateIssueLink() {
+    private static SelenideElement findCancelCreateIssueLink() {
         return $(By.xpath(xpathForCancelCreateIssueLinkAtCreateIssueWindow));
     }
 
@@ -31,7 +77,7 @@ public class MainPage {
      * Returns the create issue button element from main page
      * @return
      */
-    public static SelenideElement createIssueButton() {
+    public static SelenideElement findCreateIssueButton() {
         return $(By.xpath(xpathForCreateIssueButton));
     }
 
@@ -41,7 +87,7 @@ public class MainPage {
     }
 
     public static void createNewIssue(String summaryText, String descriptionText) {
-        createIssueButton().click();
+        findCreateIssueButton().click();
         findSummaryTextBox().setValue(summaryText);
         switchTo().frame("mce_0_ifr");
         findDescriptionTextBox().setValue(descriptionText);
@@ -57,10 +103,10 @@ public class MainPage {
     }
 
     public static void createIssueWithoutSummary(String descriptionText) {
-        createIssueButton().click();
+        findCreateIssueButton().click();
         findCreateIssueButtonAtCreateIssueWindow().click();
         assertEquals($(By.xpath(xpathForMessageYouMustSpecifySummaryOfTheIssue)).getText(), "You must specify a summary of the issue.");
-        cancelCreateIssueLink().click();
+        findCancelCreateIssueLink().click();
         switchTo().alert().accept();
     }
 
@@ -103,4 +149,8 @@ public class MainPage {
     private static SelenideElement findLogoutLink() {
         return $(By.id(idLogoutLink));
     }
+
+
+
+
 }

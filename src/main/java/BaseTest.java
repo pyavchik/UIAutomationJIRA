@@ -5,7 +5,7 @@ import org.testng.annotations.BeforeTest;
 import java.io.IOException;
 
 public class BaseTest {
-    @BeforeTest
+    @BeforeTest(alwaysRun = true)
     public static void setUp() throws IOException {
         Configuration.timeout = 35000;
     }

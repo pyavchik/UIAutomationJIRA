@@ -13,7 +13,7 @@ public class EditIssueTest extends BaseTest{
     private static String xpathForIssueUpdatedAllert = "//div[@class='aui-message aui-message-success success closeable shadowed aui-will-close']";
     private static String xpathForComment = "//div[@class='action-body flooded']";
 
-    @Test
+    @Test(groups = "masterBuild")
     public static void updateIssueDescriptionTest(){
         LoginPage.login(getPropertyValue("login"), getPropertyValue("password"));
         MainPage.createNewIssue("summaryText test issue", "descriptionText test issue");
@@ -25,7 +25,7 @@ public class EditIssueTest extends BaseTest{
         MainPage.logout();
     }
 
-    @Test
+    @Test(groups = "masterBuild")
     public static void createCommentTest(){
         LoginPage.login(getPropertyValue("login"), getPropertyValue("password"));
         MainPage.createNewIssue("summaryText test issue", "descriptionText test issue");

@@ -7,7 +7,7 @@ import static utils.PropertiesClass.getPropertyValue;
 
 public class CreateIssueTest extends BaseTest{
 
-    @Test
+    @Test(groups = "masterBuild")
     public static void createAndDeleteIssueTest(){
         LoginPage.login(getPropertyValue("login"), getPropertyValue("password"));
         MainPage.createNewIssue("summaryText test issue", "descriptionText test issue");

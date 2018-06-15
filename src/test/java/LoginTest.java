@@ -10,7 +10,7 @@ public class LoginTest extends BaseTest{
     @Test(dataProvider="correctCredentials", dataProviderClass= TestData.class)
     public static void loginTest(String login, String password){
         LoginPage.login(login, password);
-        assertEquals(MainPage.createIssueButton().isDisplayed(), true);
+        assertEquals(MainPage.findCreateIssueButton().isDisplayed(), true);
         MainPage.logout();
     }
 
