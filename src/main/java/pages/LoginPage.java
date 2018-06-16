@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import utils.Captcha;
@@ -28,7 +29,7 @@ public class LoginPage {
             }
         }
 
-        MainPage.findCreateIssueButton().isDisplayed();
+        MainPage.findCreateIssueButton().waitUntil(Condition.appear, 60000);
     }
 
     public static void loginWithCaptcha(String login, String password) {

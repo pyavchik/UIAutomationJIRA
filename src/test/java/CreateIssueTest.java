@@ -7,7 +7,7 @@ import static utils.PropertiesClass.getPropertyValue;
 
 public class CreateIssueTest extends BaseTest{
 
-    @Test(groups = "masterBuild")
+    @Test(groups = "createIssue")
     public static void createAndDeleteIssueTest(){
         LoginPage.login(getPropertyValue("login"), getPropertyValue("password"));
         MainPage.createNewIssue("summaryText test issue", "descriptionText test issue");
@@ -15,7 +15,7 @@ public class CreateIssueTest extends BaseTest{
         MainPage.logout();
     }
 
-    @Test(priority = 3)
+    @Test(groups = "createIssue")
     public static void createIssueWithoutSummary(){
         LoginPage.login(getPropertyValue("login"), getPropertyValue("password"));
         MainPage.createIssueWithoutSummary("descriptionText test issue");
