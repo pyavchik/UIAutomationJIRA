@@ -7,7 +7,7 @@ import java.io.IOException;
 public class BaseTest {
     @BeforeTest(alwaysRun = true)
     public static void setUp() throws IOException {
-        Configuration.timeout = 35000;
+        Configuration.timeout = 60000;
     }
 
     @AfterTest

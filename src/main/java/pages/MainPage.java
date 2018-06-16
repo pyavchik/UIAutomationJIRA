@@ -1,6 +1,5 @@
 package pages;
 
-
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -65,13 +64,7 @@ public class MainPage {
         return $(By.xpath(xpathForTestsLink));
     }
 
-    /**
-     * Returns the cancel create issue link element from create issue window
-     * @return
-     */
-    private static SelenideElement findCancelCreateIssueLink() {
-        return $(By.xpath(xpathForCancelCreateIssueLinkAtCreateIssueWindow));
-    }
+
 
     /**
      * Returns the create issue button element from main page
@@ -98,16 +91,20 @@ public class MainPage {
         assertEquals($(By.xpath(xpathForIssueCreatedAllert)).getText().contains(summaryText), true);
     }
 
-    public static void updateIssueDescription(String updatedDescription) {
-
-    }
-
     public static void createIssueWithoutSummary(String descriptionText) {
         findCreateIssueButton().click();
         findCreateIssueButtonAtCreateIssueWindow().click();
         assertEquals($(By.xpath(xpathForMessageYouMustSpecifySummaryOfTheIssue)).getText(), "You must specify a summary of the issue.");
         findCancelCreateIssueLink().click();
         switchTo().alert().accept();
+    }
+
+    /**
+     * Returns the cancel create issue link element from create issue window
+     * @return
+     */
+    private static SelenideElement findCancelCreateIssueLink() {
+        return $(By.xpath(xpathForCancelCreateIssueLinkAtCreateIssueWindow));
     }
 
     /**
@@ -149,8 +146,5 @@ public class MainPage {
     private static SelenideElement findLogoutLink() {
         return $(By.id(idLogoutLink));
     }
-
-
-
 
 }
