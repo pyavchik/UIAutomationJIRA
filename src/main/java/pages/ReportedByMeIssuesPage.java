@@ -202,6 +202,7 @@ public class ReportedByMeIssuesPage {
         findDescriptionTextBox().sendKeys(Keys.ENTER);
         switchTo().parentFrame();
         findSaveButtonInEditCommentWindow().click();
+        refresh();
         findCommentText().shouldBe(Condition.appear);
 
     }

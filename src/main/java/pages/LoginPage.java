@@ -27,6 +27,8 @@ public class LoginPage {
                 continue;
             }
         }
+
+        MainPage.findCreateIssueButton().isDisplayed();
     }
 
     public static void loginWithCaptcha(String login, String password) {
