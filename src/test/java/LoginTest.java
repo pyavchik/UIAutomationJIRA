@@ -1,18 +1,19 @@
-import com.codeborne.selenide.Condition;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import testdata.TestData;
+import utils.MyTestListeners;
 
 import static org.testng.Assert.assertEquals;
 
-public class LoginTest extends BaseTest{
+@Listeners(MyTestListeners.class)
+public class LoginTest{
 
     @Test(dataProvider="correctCredentials", dataProviderClass= TestData.class, groups = {"masterBuild", "loginGroup"})
     public static void loginTest(String login, String password){
         LoginPage.login(login, password);
-        MainPage.findCreateIssueButton().waitUntil(Condition.appear, 60000);
-        assertEquals(MainPage.findCreateIssueButton().isDisplayed(), true);
+        assertEquals(MainPage.at(), true);
         MainPage.logout();
     }
 
@@ -21,6 +22,7 @@ public class LoginTest extends BaseTest{
     public static void loginCorrectLoginWrongPasswordTest(String login, String password){
         LoginPage.login(login, password);
         assertEquals(LoginPage.findAuiErrorMessage().isDisplayed(), true);
+        assertEquals(LoginPage.at(), true);
     }
 
     @Test(dataProvider="wrongLoginCorrectPasswordCredentials", dataProviderClass= TestData.class,
@@ -28,6 +30,7 @@ public class LoginTest extends BaseTest{
     public static void loginWrongLoginCorrectPasswordTest(String login, String password){
         LoginPage.login(login, password);
         assertEquals(LoginPage.findAuiErrorMessage().isDisplayed(), true);
+        assertEquals(LoginPage.at(), true);
     }
 
     @Test(dataProvider="wrongLoginWrongPasswordCredentials", dataProviderClass= TestData.class,
@@ -35,5 +38,6 @@ public class LoginTest extends BaseTest{
     public static void loginWrongLoginWrongPasswordTest(String login, String password){
         LoginPage.login(login, password);
         assertEquals(LoginPage.findAuiErrorMessage().isDisplayed(), true);
+        assertEquals(LoginPage.at(), true);
     }
 }

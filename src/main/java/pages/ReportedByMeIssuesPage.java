@@ -232,4 +232,12 @@ public class ReportedByMeIssuesPage {
         return $(By.id(idForDeleteButtonInDeleteCommentWindow));
     }
 
+    public static boolean at() {
+        if(findEditButton().isDisplayed()){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }

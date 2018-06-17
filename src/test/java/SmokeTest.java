@@ -1,14 +1,16 @@
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.MainPage;
+import utils.MyTestListeners;
 
 import static org.testng.Assert.assertEquals;
 import static utils.PropertiesClass.getPropertyValue;
 
-
-public class SmokeTest extends BaseTest{
+@Listeners(MyTestListeners.class)
+public class SmokeTest {
 
     @BeforeClass(alwaysRun = true)
     public static void setUp(){

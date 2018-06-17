@@ -1,11 +1,14 @@
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.ReportedByMeIssuesPage;
+import utils.MyTestListeners;
 
 import static utils.PropertiesClass.getPropertyValue;
 
-public class CreateIssueTest extends BaseTest{
+@Listeners(MyTestListeners.class)
+public class CreateIssueTest {
 
     @Test(groups = "createIssue")
     public static void createAndDeleteIssueTest(){

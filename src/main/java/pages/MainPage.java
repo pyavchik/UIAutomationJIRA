@@ -147,4 +147,13 @@ public class MainPage {
         return $(By.id(idLogoutLink));
     }
 
+    public static boolean at(){
+        if(MainPage.findCreateIssueButton().isDisplayed()){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 }

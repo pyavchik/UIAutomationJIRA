@@ -1,14 +1,17 @@
 import org.openqa.selenium.By;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.ReportedByMeIssuesPage;
+import utils.MyTestListeners;
 
 import static com.codeborne.selenide.Selenide.$;
 import static org.testng.Assert.assertEquals;
 import static utils.PropertiesClass.getPropertyValue;
 
-public class EditIssueTest extends BaseTest{
+@Listeners(MyTestListeners.class)
+public class EditIssueTest {
 
     private static String xpathForIssueUpdatedAllert = "//div[@class='aui-message aui-message-success success closeable shadowed aui-will-close']";
     private static String xpathForComment = "//div[@class='action-body flooded']";
@@ -30,7 +33,7 @@ public class EditIssueTest extends BaseTest{
         LoginPage.login(getPropertyValue("login"), getPropertyValue("password"));
         MainPage.createNewIssue("summaryText test issue", "descriptionText test issue");
         ReportedByMeIssuesPage.createComment("summaryText test issue", "Comment text");
-
+        assertEquals(ReportedByMeIssuesPage.at(), true);
         assertEquals($(By.xpath(xpathForComment)).getText().contains("Comment text"), true);
 
         ReportedByMeIssuesPage.deleteIssueReportedByMe("summaryText test issue");

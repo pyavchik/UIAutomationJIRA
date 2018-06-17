@@ -10,4 +10,9 @@
             <package name=".*" />
         </packages>
     </test>
+    <listeners>
+        <listener class-name="utils.MyTestListeners">
+
+        </listener>
+    </listeners>
 </suite>
