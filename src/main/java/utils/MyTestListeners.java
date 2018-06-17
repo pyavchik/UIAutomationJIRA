@@ -6,12 +6,15 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import static com.codeborne.selenide.Selenide.screenshot;
+
 public class MyTestListeners implements ITestListener{
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        Configuration.browser = "chrome";
-        Configuration.timeout = 4000;
+        Configuration.browser = "firefox";
+        Configuration.timeout = 14000;
+        Configuration.screenshots = false;
     }
 
     @Override
@@ -21,7 +24,7 @@ public class MyTestListeners implements ITestListener{
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-
+        screenshot(iTestResult.getInstanceName() + "_" + iTestResult.getMethod().getMethodName());
     }
 
     @Override

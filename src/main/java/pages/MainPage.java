@@ -87,7 +87,7 @@ public class MainPage {
         findDescriptionTextBox().sendKeys(Keys.ENTER);
         switchTo().parentFrame();
         findCreateIssueButtonAtCreateIssueWindow().click();
-
+        assertEquals(ReportedByMeIssuesPage.at(), true);
         assertEquals($(By.xpath(xpathForIssueCreatedAllert)).getText().contains(summaryText), true);
     }
 

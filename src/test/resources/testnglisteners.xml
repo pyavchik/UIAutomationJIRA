@@ -6,7 +6,6 @@
         </packages>
     </test>
     <listeners>
-        <listener class-name="utils.CustomListener"></listener>
         <listener class-name="utils.MyTestListeners"></listener>
     </listeners>
 </suite>
