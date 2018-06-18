@@ -27,8 +27,6 @@ public class LoginPage {
                 continue;
             }
         }
-
-
     }
 
     public static void loginWithCaptcha(String login, String password) {

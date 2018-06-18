@@ -8,12 +8,13 @@ import org.testng.ITestResult;
 
 import static com.codeborne.selenide.Selenide.screenshot;
 
+
 public class MyTestListeners implements ITestListener{
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
         Configuration.browser = "firefox";
-        Configuration.timeout = 14000;
+        Configuration.timeout = 24000;
         Configuration.screenshots = false;
     }
 
@@ -46,4 +47,5 @@ public class MyTestListeners implements ITestListener{
     public void onFinish(ITestContext iTestContext) {
 
     }
+
 }

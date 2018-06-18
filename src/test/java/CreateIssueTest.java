@@ -21,8 +21,7 @@ public class CreateIssueTest {
     @Test(groups = "createIssue")
     public static void createIssueWithoutSummary(){
         LoginPage.login(getPropertyValue("login"), getPropertyValue("password"));
-        MainPage.createIssueWithoutSummary("descriptionText test issue");
-
+        MainPage.createIssueWithoutSummary();
     }
 
 }

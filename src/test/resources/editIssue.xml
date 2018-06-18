@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name = "TestSuite"  >
+    <test name="GroupTests" preserve-order="true">
+        <groups>
+            <run>
+                <include name = "editIssue" />
+            </run>
+        </groups>
+        <packages>
+            <package name=".*" />
+        </packages>
+    </test>
+    <listeners>
+        <listener class-name="utils.MyTestListeners">
+
+        </listener>
+    </listeners>
+</suite>

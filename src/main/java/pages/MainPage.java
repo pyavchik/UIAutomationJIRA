@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -23,6 +24,7 @@ public class MainPage {
     private static String xpathForIssuesLink = "//a[@id='find_link']";
     private static String xpathForBoardsLink = "//a[@id='greenhopper_menu']";
     private static String xpathForTestsLink = "//a[@id='zephyr_je.topnav.tests']";
+    private static String xpathForLoadingIcon = "//span[@class='icon throbber loading']//span[@class='icon throbber loading']";
 
     /**
      * Returns the dashboard link
@@ -64,8 +66,6 @@ public class MainPage {
         return $(By.xpath(xpathForTestsLink));
     }
 
-
-
     /**
      * Returns the create issue button element from main page
      * @return
@@ -87,16 +87,25 @@ public class MainPage {
         findDescriptionTextBox().sendKeys(Keys.ENTER);
         switchTo().parentFrame();
         findCreateIssueButtonAtCreateIssueWindow().click();
-        assertEquals(ReportedByMeIssuesPage.at(), true);
+        findLoadingIcon().waitUntil(Condition.disappear, 60000);
+
         assertEquals($(By.xpath(xpathForIssueCreatedAllert)).getText().contains(summaryText), true);
     }
 
-    public static void createIssueWithoutSummary(String descriptionText) {
+    public static void createIssueWithoutSummary() {
         findCreateIssueButton().click();
         findCreateIssueButtonAtCreateIssueWindow().click();
         assertEquals($(By.xpath(xpathForMessageYouMustSpecifySummaryOfTheIssue)).getText(), "You must specify a summary of the issue.");
         findCancelCreateIssueLink().click();
         switchTo().alert().accept();
+    }
+
+    /**
+     * Returns the loading icon element
+     * @return
+     */
+    private static SelenideElement findLoadingIcon() {
+        return $(By.xpath(xpathForLoadingIcon));
     }
 
     /**

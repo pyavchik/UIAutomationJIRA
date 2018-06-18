@@ -16,7 +16,7 @@ public class EditIssueTest {
     private static String xpathForIssueUpdatedAllert = "//div[@class='aui-message aui-message-success success closeable shadowed aui-will-close']";
     private static String xpathForComment = "//div[@class='action-body flooded']";
 
-    @Test(groups = "masterBuild")
+    @Test(groups = "editIssue")
     public static void updateIssueDescriptionTest(){
         LoginPage.login(getPropertyValue("login"), getPropertyValue("password"));
         MainPage.createNewIssue("summaryText test issue", "descriptionText test issue");
@@ -28,7 +28,7 @@ public class EditIssueTest {
         MainPage.logout();
     }
 
-    @Test(groups = "masterBuild")
+    @Test(groups = "editIssue")
     public static void createCommentTest(){
         LoginPage.login(getPropertyValue("login"), getPropertyValue("password"));
         MainPage.createNewIssue("summaryText test issue", "descriptionText test issue");
@@ -40,7 +40,7 @@ public class EditIssueTest {
         MainPage.logout();
     }
 
-    @Test
+    @Test(groups = "editIssue")
     public static void readCommentTest(){
         LoginPage.login(getPropertyValue("login"), getPropertyValue("password"));
         MainPage.createNewIssue("summaryText test issue", "descriptionText test issue");
@@ -52,7 +52,7 @@ public class EditIssueTest {
         MainPage.logout();
     }
 
-    @Test
+    @Test(groups = "editIssue")
     public static void updateCommentTest(){
         LoginPage.login(getPropertyValue("login"), getPropertyValue("password"));
         MainPage.createNewIssue("summaryText test issue", "descriptionText test issue");
@@ -65,7 +65,7 @@ public class EditIssueTest {
         MainPage.logout();
     }
 
-    @Test
+    @Test(groups = "editIssue")
     public static void deleteCommentTest(){
         LoginPage.login(getPropertyValue("login"), getPropertyValue("password"));
         MainPage.createNewIssue("summaryText test issue", "descriptionText test issue");
@@ -77,6 +77,4 @@ public class EditIssueTest {
         ReportedByMeIssuesPage.deleteIssueReportedByMe("summaryText test issue");
         MainPage.logout();
     }
-
-
 }
