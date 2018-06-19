@@ -39,6 +39,8 @@ public class ReportedByMeIssuesPage {
         switchTo().parentFrame();
         findAddCommentButton().click();
         refresh();
+        findCommentText().scrollIntoView(true);
+        findCommentText().waitUntil(Condition.appear, 30000);
         findCommentText().shouldBe(Condition.exist);
     }
 
@@ -58,11 +60,14 @@ public class ReportedByMeIssuesPage {
         switchTo().parentFrame();
         findSaveButtonInEditCommentWindow().click();
         refresh();
+        findCommentText().scrollIntoView(true);
+        findCommentText().waitUntil(Condition.appear, 30000);
         findCommentText().shouldBe(Condition.exist);
 
     }
 
     public static void deleteComment() {
+        findCommentText().waitUntil(Condition.appear, 30000);
         findCommentText().hover();
         findDeleteCommentButton().click();
         findDeleteCommentButtonInDeleteCommentWindow().click();
@@ -89,7 +94,7 @@ public class ReportedByMeIssuesPage {
         findDescriptionTextBox().click();
         findDescriptionTextBox().clear();
         findDescriptionTextBox().setValue(updatedDescription);
-        findDescriptionTextBox().sendKeys(Keys.ENTER);
+        findDescriptionTextBox().waitUntil(Condition.appear, 5000);
         switchTo().parentFrame();
         findEditButtonInUpdateIssueWindow().click();
         $(By.xpath(xpathForPopUpAllert)).shouldBe(Condition.exist);
