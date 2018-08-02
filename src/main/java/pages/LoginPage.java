@@ -101,4 +101,13 @@ public class LoginPage {
     private static SelenideElement findLoginButton(){
         return $(By.id("login-form-submit"));
     }
+
+    public static boolean at() {
+        if(findUsernameTextBox().isDisplayed()){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }
